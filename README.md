@@ -1,19 +1,23 @@
-# 🗂 Task Manager API
+# 🚀 Task Manager API
 
 ## 📌 Project Overview
 
-This project is a scalable REST API built using **FastAPI** with **PostgreSQL**, implementing:
+This project is a scalable REST API built using **Python (FastAPI)** with **PostgreSQL** as the database 
+and **React.js** as the frontend.
 
-- JWT Authentication  
-- Role-Based Access Control (RBAC)  
-- Full CRUD operations for Tasks  
-- Secure password hashing  
-- React frontend for testing APIs  
+The system implements:
+
+- JWT Authentication
+- Role-Based Access Control (RBAC)
+- Full CRUD operations for Tasks
+- Secure password hashing
+- Modular & scalable backend architecture
+- React frontend to interact with the APIs
 
 The system supports two roles:
 
-- 👤 User  
-- 🛡 Admin  
+- User
+- Admin
 
 ---
 
@@ -21,17 +25,19 @@ The system supports two roles:
 
 ### 🔹 Backend
 
-- FastAPI  
-- PostgreSQL  
-- SQLAlchemy ORM  
-- JWT (python-jose)  
-- bcrypt (passlib)  
-- Pydantic  
+- Python
+- FastAPI
+- PostgreSQL
+- SQLAlchemy ORM
+- Pydantic
+- JWT (python-jose)
+- bcrypt (passlib)
 
 ### 🔹 Frontend
 
-- React.js  
-- Axios  
+- React.js
+- Axios
+- CSS
 
 ---
 
@@ -42,67 +48,97 @@ app/
 ├── auth/
 ├── core/
 ├── models/
-├── schemas/
 ├── routers/
+├── schemas/
 ├── services/
 ├── database.py
 ├── main.py
 
 frontend/
+├── src/
+│   ├── api/
+│   ├── components/
+│   ├── pages/
+│   ├── App.js
+│   ├── index.js
+│   └── styles.css
+├── public/
+├── package.json
 ```
 
-The project follows a modular and scalable architecture separating:
+### Architecture Layers
 
 - **Routers** → API layer  
 - **Services** → Business logic  
 - **Models** → Database layer  
 - **Schemas** → Validation layer  
 
+This layered structure ensures maintainability and scalability.
+
 ---
 
 ## 🔐 Authentication & Authorization
 
-- Passwords are hashed using **bcrypt**
-- JWT tokens are issued upon login
-- Role-based access is enforced at backend level
-- Admin-only routes are protected using dependencies
+- Passwords are hashed using bcrypt.
+- JWT tokens are generated upon login.
+- Protected routes require a valid JWT token.
+- Role-based access control is enforced at backend level.
+- Admin-only routes are secured using dependency injection.
+
+---
+
+## 👥 Roles
+
+### User
+- Register
+- Login
+- Create tasks
+- View own tasks
+- Update own tasks
+- Delete task (only if completed)
+
+### Admin
+- View all users' tasks
+- Manage system-level access
 
 ---
 
 ## 🧾 Features Implemented
 
-### 1️⃣ User Authentication
+### 1️⃣ Authentication APIs
 
-- Register  
-- Login  
-- Password hashing  
-- JWT token generation  
-- Protected routes  
+- `POST /api/v1/auth/register`
+- `POST /api/v1/auth/login`
 
----
-
-### 2️⃣ Role-Based Access
-
-- `user` role  
-- `admin` role  
-- Admin can view all tasks  
-- Users can manage only their own tasks  
+Includes:
+- Password hashing
+- JWT token generation
+- Protected route access
 
 ---
 
-### 3️⃣ Task CRUD
+### 2️⃣ Role-Based Access Control
 
-- Create task  
-- View own tasks  
-- Update title & description  
-- Update status  
-- Delete task (only if completed)  
+- `user` role
+- `admin` role
+- Admin can access all tasks
+- Users can access only their own tasks
+
+---
+
+### 3️⃣ Task CRUD APIs
+
+- `POST /api/v1/tasks`
+- `GET /api/v1/tasks`
+- `GET /api/v1/tasks/all` (Admin only)
+- `PUT /api/v1/tasks/{id}`
+- `DELETE /api/v1/tasks/{id}`
 
 ---
 
 ## 🗄 Database Configuration (PostgreSQL)
 
-Make sure PostgreSQL is installed and running.
+Ensure PostgreSQL is installed and running.
 
 Create database:
 
@@ -125,13 +161,13 @@ DATABASE_URL = "postgresql://postgres:yourpassword@localhost:5432/taskdb"
 Create virtual environment:
 
 ```bash
-python -m venv env
+python -m venv venv
 ```
 
 Activate environment:
 
 ```bash
-env\Scripts\activate
+venv\Scripts\activate
 ```
 
 Install dependencies:
@@ -140,13 +176,13 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Run server:
+Run the server:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-API Docs available at:
+Swagger API documentation:
 
 ```
 http://127.0.0.1:8000/docs
@@ -156,7 +192,7 @@ http://127.0.0.1:8000/docs
 
 ### 🔹 Frontend Setup
 
-Go to frontend folder:
+Navigate to frontend directory:
 
 ```bash
 cd frontend
@@ -168,13 +204,13 @@ Install dependencies:
 npm install
 ```
 
-Run frontend:
+Run the React application:
 
 ```bash
 npm start
 ```
 
-App runs at:
+Frontend runs at:
 
 ```
 http://localhost:3000
@@ -182,45 +218,32 @@ http://localhost:3000
 
 ---
 
-## 🔍 API Endpoints
+## 🔍 API Documentation
 
-### 🔐 Authentication
-
-- `POST /api/v1/auth/register`
-- `POST /api/v1/auth/login`
-
-### 📋 Tasks
-
-- `GET /api/v1/tasks` → User tasks  
-- `GET /api/v1/tasks/all` → Admin only  
-- `POST /api/v1/tasks`  
-- `PUT /api/v1/tasks/{id}`  
-- `DELETE /api/v1/tasks/{id}`  
+- Swagger UI available at `/docs`
+- Versioned APIs under `/api/v1/`
+- Proper HTTP status codes implemented
+- Centralized error handling
+- Pydantic validation for request and response models
 
 ---
 
 ## ⚡ Scalability Considerations
 
-- Modular project structure for maintainability  
-- Service layer separation for business logic  
-- PostgreSQL for production-grade relational storage  
-- Stateless JWT authentication allows horizontal scaling  
-- Role-based authorization implemented at backend level  
-
-### 🚀 Future Improvements
-
-- Docker containerization  
-- Redis caching  
-- Deployment on cloud (AWS / Render)  
+- Modular layered backend architecture
+- Service layer abstraction
+- API versioning
+- Stateless JWT authentication
+- PostgreSQL for production-ready relational storage
+- Clean separation of concerns
 
 ---
 
-## 📦 Security Considerations
+## 🔒 Security Practices
 
-- Password hashing using bcrypt  
-- JWT authentication  
-- Role-based backend enforcement  
-- Input validation using Pydantic  
-- No raw SQL queries (ORM-based)  
-
----
+- Password hashing with bcrypt
+- JWT-based authentication
+- Role-based authorization enforcement
+- Input validation using Pydantic
+- ORM-based queries (no raw SQL)
+- Proper HTTP status handling
