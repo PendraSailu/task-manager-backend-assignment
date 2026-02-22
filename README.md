@@ -224,7 +224,3 @@ http://localhost:3000
 - No raw SQL queries (ORM-based)  
 
 ---
-
-## 👨‍💻 Author
-
-Built as a scalable backend project demonstrating production-ready architecture using FastAPI.
